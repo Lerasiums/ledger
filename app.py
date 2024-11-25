@@ -2,13 +2,13 @@ from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
 
-# 本地帳本（模擬存儲）
-ledger = []  # 每筆交易是一個字典，格式為 {"sender": ..., "receiver": ..., "amount": ...}
+# 本地帳本
+ledger = []  
 
 # 首頁
 @app.route("/")
 def home():
-    return render_template("index.html")  # 主頁面顯示選項
+    return render_template("index.html")  # 主頁面
 
 # 新增交易
 @app.route("/add_transaction", methods=["POST"])
@@ -17,7 +17,7 @@ def add_transaction():
     receiver = request.form.get("receiver")
     amount = float(request.form.get("amount"))
     
-    # 新增交易到本地帳本
+    # 新增交易
     transaction = {
         "sender": sender,
         "receiver": receiver,
@@ -25,7 +25,7 @@ def add_transaction():
     }
     ledger.append(transaction)
     
-    # 重定向到結果頁面
+    # 重新回到結果頁面
     return render_template("transaction_success.html", transaction=transaction)
 
 # 查詢餘額
